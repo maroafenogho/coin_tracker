@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class SignUp extends StatelessWidget {
-  const SignUp({Key? key}) : super(key: key);
+class Login extends StatelessWidget {
+  const Login({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -30,10 +30,9 @@ class SignUp extends StatelessWidget {
               const SizedBox(
                 height: 8.0,
               ),
-              
               ElevatedButton(
-               onPressed: (){},
-               child: const Text('Login'),
+                onPressed: () {},
+                child: const Text('Login'),
               ),
             ],
           ),

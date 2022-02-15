@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "961842499247",
+    "project_id": "coin-tracker-e7414",
+    "storage_bucket": "coin-tracker-e7414.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:961842499247:android:442bfdd4c5e1af9bee4e5a",
+        "android_client_info": {
+          "package_name": "com.maro.coin_tracker"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "961842499247-mtpgv8v9sqvav5m02r5hiah9tjg2si5n.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyABCGbSb3nQDyWLFG7vXdz_yaNhMiHLip0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "961842499247-mtpgv8v9sqvav5m02r5hiah9tjg2si5n.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
