@@ -1,3 +1,4 @@
+import 'package:coin_tracker/screens/auth_screens/login.dart';
 import 'package:coin_tracker/tools/user.dart';
 import 'package:firebase_auth/firebase_auth.dart' as auth;
 import 'package:get/get.dart';
@@ -13,11 +14,11 @@ class Controller extends GetxController {
     }
   }
 
-   void sendVerEmail() {
+  void sendVerEmail() {
     auth.User? firebaseUser = _firebaseAuth.currentUser;
     if (firebaseUser != null) {
-      firebaseUser.sendEmailVerification().whenComplete(() {
-        Get.snackbar('Verification','Email Verification sent');
+      firebaseUser.sendEmailVerification().then((user) {
+        Get.snackbar('Verification', 'Email Verification sent');
       });
     }
   }
@@ -43,9 +44,27 @@ class Controller extends GetxController {
       password: password,
     )
         .then((value) {
+      sendVerEmail();
+      isLoading = false;
+      Get.snackbar(
+        'Registration Successful',
+        'Account created successfully',
+        duration: const Duration(seconds: 5),
+      );
+      Get.to(() => Login());
       _firebaseAuth.currentUser!.updateDisplayName(displayName);
     });
     return _userFromFirebase(credential.user);
+  }
+
+  void signOut() async {
+    await _firebaseAuth.signOut().then(
+          (value) => Get.snackbar(
+            'Logout',
+            'User logged out',
+            duration: const Duration(seconds: 5),
+          ),
+        );
   }
 
   String warningLength = '', warningDifferent = '';
@@ -75,16 +94,9 @@ class Controller extends GetxController {
     update();
   }
 
-  void loading(bool isOn) {
+  void loading() {
     isLoading = !isLoading;
-    // isLoading(isOn);
     print(isLoading);
-    update();
-  }
-
-  final count = 0.obs;
-  void increment() {
-    count.value++;
     update();
   }
 }

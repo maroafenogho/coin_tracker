@@ -18,28 +18,32 @@ class SignUp extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 16.0),
           child: Center(
             child: GetBuilder<Controller>(
-              builder: (_) => Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: <Widget>[
-                  const Text('Email address:'),
-                  EditText(
-                    onChanged: (typedText) {
-                      email = typedText;
-                    },
-                    obscureText: false,
-                  ),
-                  const SizedBox(
-                    height: 8.0,
-                  ),
-                  const Text('Username:'),
-                  EditText(
+              builder: (_) => SingleChildScrollView(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: <Widget>[
+                    const Text('Email address:'),
+                    EditText(
+                      onChanged: (typedText) {
+                        email = typedText;
+                      },
+                      obscureText: false,
+                      inputType: TextInputType.emailAddress,
+                    ),
+                    const SizedBox(
+                      height: 8.0,
+                    ),
+                    const Text('Username:'),
+                    EditText(
                       onChanged: (typedText) {
                         displayName = typedText;
                       },
-                      obscureText: false),
-                  const Text('Password:'),
-                  EditText(
+                      obscureText: false,
+                      inputType: TextInputType.name,
+                    ),
+                    const Text('Password:'),
+                    EditText(
                       onChanged: (typedText) {
                         if (typedText.length >= 6 || typedText.isEmpty) {
                           getxController.hideWarning();
@@ -49,69 +53,54 @@ class SignUp extends StatelessWidget {
 
                         password = typedText;
                       },
-                      obscureText: true),
-                  getxController.warningLength == ''
-                      ? Container()
-                      : Text(
-                          getxController.warningLength,
-                          style: const TextStyle(color: Colors.red),
-                        ),
-                  const SizedBox(
-                    height: 8.0,
-                  ),
-                  const Text('Confirm Password:'),
-                  EditText(
+                      obscureText: true,
+                      inputType: TextInputType.none,
+                    ),
+                    getxController.warningLength == ''
+                        ? Container()
+                        : Text(
+                            getxController.warningLength,
+                            style: const TextStyle(color: Colors.red),
+                          ),
+                    const SizedBox(
+                      height: 8.0,
+                    ),
+                    const Text('Confirm Password:'),
+                    EditText(
                       onChanged: (typedText) {
                         confirmPassword = typedText;
                         password == confirmPassword
                             ? getxController.hideWarningDifferent()
                             : getxController.showWarningDifferent();
                       },
-                      obscureText: true),
-                  getxController.warningDifferent == ''
-                      ? Container()
-                      : Text(
-                          getxController.warningDifferent,
-                          style: const TextStyle(color: Colors.red),
-                        ),
-                  ElevatedButton(
-                    onPressed: () {
-                      getxController
-                          .createUser(email, password, displayName)
-                          .whenComplete(() {
-                        Get.snackbar(
-                          'Registration Successful',
-                          'Account created successfully',
-                          duration: const Duration(seconds: 5),
-                        );
-                        getxController.sendVerEmail();
-                        getxController.isLoading = false;
-                        Get.to(const Login());
-                      }).onError(
-                        (error, stackTrace) {
-                          Get.snackbar(
-                            'Error',
-                            '$error',
-                            duration: const Duration(seconds: 5),
-                          );
-                        },
-                      );
-                      getxController.loading(true);
-                      getxController.increment();
-                    },
-                    child: getxController.isLoading == false
-                        ? const Text('Register')
-                        : const CircularProgressIndicator(
-                            color: Colors.white,
+                      obscureText: true,
+                      inputType: TextInputType.none,
+                    ),
+                    getxController.warningDifferent == ''
+                        ? Container()
+                        : Text(
+                            getxController.warningDifferent,
+                            style: const TextStyle(color: Colors.red),
                           ),
-                  ),
-                  TextButton(
-                    onPressed: () {
-                      Get.to(const Login());
-                    },
-                    child: Text('Go to Login page'),
-                  )
-                ],
+                    ElevatedButton(
+                      onPressed: () {
+                        getxController.createUser(email, password, displayName);
+                        getxController.loading();
+                      },
+                      child: getxController.isLoading == false
+                          ? const Text('Register')
+                          : const CircularProgressIndicator(
+                              color: Colors.white,
+                            ),
+                    ),
+                    TextButton(
+                      onPressed: () {
+                        Get.to(() =>  Login());
+                      },
+                      child: Text('Go to Login page'),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
