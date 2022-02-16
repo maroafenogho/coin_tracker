@@ -1,4 +1,5 @@
 import 'package:coin_tracker/screens/auth_screens/email_auth_screen.dart';
+import 'package:coin_tracker/screens/home.dart';
 import 'package:coin_tracker/tools/auth_service.dart';
 import 'package:coin_tracker/widgets/edittext.dart';
 import 'package:flutter/material.dart';
@@ -6,7 +7,7 @@ import 'package:get/get.dart';
 
 class Login extends StatelessWidget {
   Login({Key? key}) : super(key: key);
-  final getxController = Get.put(Controller());
+  final authController = Get.put(Controller());
   String email = '', password = '';
 
   @override
@@ -44,26 +45,34 @@ class Login extends StatelessWidget {
                 ),
                 ElevatedButton(
                   onPressed: () {
-                    getxController.loading();
-                    getxController.signIn(email, password).then((user) {
-                      getxController.loading();
+                    authController.loading();
+                    authController.signIn(email, password).then((user) {
+                      authController.loading();
                       if (user!.emailVerified!) {
+                        Get.to(() => HomeScreen());
                         Get.snackbar(
                           'Login successful',
                           'User authenticated with ${user.email} successfully',
                           duration: const Duration(seconds: 5),
                         );
                       } else {
-                        getxController.signOut();
+                        authController.signOut();
                         Get.snackbar(
                           'Login Unuccessful',
                           'Email Address not verified',
                           duration: const Duration(seconds: 5),
                         );
                       }
+                    }).onError((error, stackTrace) {
+                      authController.loading();
+                      Get.snackbar(
+                          'Error',
+                          '$error ',
+                          duration: const Duration(seconds: 5),
+                        );
                     });
                   },
-                  child: getxController.isLoading == false
+                  child: authController.isLoading == false
                       ? const Text('Login')
                       : const CircularProgressIndicator(
                           color: Colors.white,
@@ -77,7 +86,7 @@ class Login extends StatelessWidget {
                 ),
                 TextButton(
                   onPressed: () {
-                    getxController.signOut();
+                    authController.signOut();
                   },
                   child: Text('logout'),
                 ),

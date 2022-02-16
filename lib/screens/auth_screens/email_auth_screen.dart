@@ -7,7 +7,7 @@ import '../../tools/auth_service.dart';
 
 class SignUp extends StatelessWidget {
   SignUp({Key? key}) : super(key: key);
-  final getxController = Get.put(Controller());
+  final authController = Get.put(Controller());
   String email = '', password = '', confirmPassword = '', displayName = '';
 
   @override
@@ -46,9 +46,9 @@ class SignUp extends StatelessWidget {
                     EditText(
                       onChanged: (typedText) {
                         if (typedText.length >= 6 || typedText.isEmpty) {
-                          getxController.hideWarning();
+                          authController.hideWarning();
                         } else {
-                          getxController.showWarning();
+                          authController.showWarning();
                         }
 
                         password = typedText;
@@ -56,10 +56,10 @@ class SignUp extends StatelessWidget {
                       obscureText: true,
                       inputType: TextInputType.none,
                     ),
-                    getxController.warningLength == ''
+                    authController.warningLength == ''
                         ? Container()
                         : Text(
-                            getxController.warningLength,
+                            authController.warningLength,
                             style: const TextStyle(color: Colors.red),
                           ),
                     const SizedBox(
@@ -70,24 +70,24 @@ class SignUp extends StatelessWidget {
                       onChanged: (typedText) {
                         confirmPassword = typedText;
                         password == confirmPassword
-                            ? getxController.hideWarningDifferent()
-                            : getxController.showWarningDifferent();
+                            ? authController.hideWarningDifferent()
+                            : authController.showWarningDifferent();
                       },
                       obscureText: true,
                       inputType: TextInputType.none,
                     ),
-                    getxController.warningDifferent == ''
+                    authController.warningDifferent == ''
                         ? Container()
                         : Text(
-                            getxController.warningDifferent,
+                            authController.warningDifferent,
                             style: const TextStyle(color: Colors.red),
                           ),
                     ElevatedButton(
                       onPressed: () {
-                        getxController.createUser(email, password, displayName);
-                        getxController.loading();
+                        authController.createUser(email, password, displayName);
+                        authController.loading();
                       },
-                      child: getxController.isLoading == false
+                      child: authController.isLoading == false
                           ? const Text('Register')
                           : const CircularProgressIndicator(
                               color: Colors.white,

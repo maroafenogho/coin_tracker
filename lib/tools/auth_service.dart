@@ -14,6 +14,10 @@ class Controller extends GetxController {
     }
   }
 
+  Stream<User?>? get user {
+    return _firebaseAuth.authStateChanges().map(_userFromFirebase);
+  }
+
   void sendVerEmail() {
     auth.User? firebaseUser = _firebaseAuth.currentUser;
     if (firebaseUser != null) {
@@ -58,13 +62,14 @@ class Controller extends GetxController {
   }
 
   void signOut() async {
-    await _firebaseAuth.signOut().then(
-          (value) => Get.snackbar(
-            'Logout',
-            'User logged out',
-            duration: const Duration(seconds: 5),
-          ),
-        );
+    await _firebaseAuth.signOut().then((value) {
+      Get.snackbar(
+        'Logout',
+        'User logged out',
+        duration: const Duration(seconds: 5),
+      );
+      Get.to(() => Login());
+    });
   }
 
   String warningLength = '', warningDifferent = '';
