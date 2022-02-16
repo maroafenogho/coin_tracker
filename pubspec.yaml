@@ -19,6 +19,8 @@ dependencies:
   hive: ^2.0.5
   hive_flutter: ^1.1.0
   http: ^0.13.4
+  flutter_local_notifications: ^9.3.2
+  rxdart: ^0.27.3
 
 dev_dependencies:
   flutter_test:
