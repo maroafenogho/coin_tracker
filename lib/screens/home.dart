@@ -20,7 +20,7 @@ class HomeScreen extends StatelessWidget {
                 Container(
                   child: TextButton(
                       onPressed: () {
-                        apiController.getCoinInfo();
+                        // apiController.getCoinInfo();
                       },
                       child: Text('data')),
                 ),
@@ -33,8 +33,10 @@ class HomeScreen extends StatelessWidget {
                 ),
                 Container(
                   child: TextButton(
-                      onPressed: () {
-                        NotificationHandler().showNotification();
+                      onPressed: () async {
+                        await apiController.getBtcPrice();
+                        await apiController.getEthPrice();
+                        await NotificationService().showNotifications();
                       },
                       child: Text('Show notification')),
                 ),
