@@ -20,7 +20,7 @@ class HomeScreen extends StatelessWidget {
                 Container(
                   child: TextButton(
                       onPressed: () {
-                        // apiController.getCoinInfo();
+                        apiController.getBtcPrice();
                       },
                       child: Text('data')),
                 ),
@@ -36,7 +36,7 @@ class HomeScreen extends StatelessWidget {
                       onPressed: () async {
                         await apiController.getBtcPrice();
                         await apiController.getEthPrice();
-                        await NotificationService().showNotifications();
+                        await NotificationService().scheduleNotifications();
                       },
                       child: Text('Show notification')),
                 ),
@@ -54,6 +54,7 @@ class HomeScreen extends StatelessWidget {
                         )
                       : SizedBox(
                           child: ListView.builder(
+                            reverse: true,
                             scrollDirection: Axis.vertical,
                             itemBuilder: (context, index) {
                               final coin = apiController.coinInfoList[index];
