@@ -61,7 +61,7 @@ class NotificationService {
       'BTC price is ${apiController.btcPrice} and Eth price is ${apiController.ethPrice}',
       platformChannelSpecifics,
       payload: 'Notification Payload',
-    );
+    ).then((value) => print('okok'));
   }
 
   Future<void> scheduleNotifications() async {
@@ -83,6 +83,7 @@ class NotificationService {
     )
         .then((value) {
       print('Scheduled');
+
     });
   }
 }

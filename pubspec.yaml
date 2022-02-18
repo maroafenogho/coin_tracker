@@ -22,6 +22,7 @@ dependencies:
   flutter_local_notifications: ^9.3.2
   rxdart: ^0.27.3
   flutter_native_timezone: ^2.0.0
+  workmanager: ^0.4.1
 
 dev_dependencies:
   flutter_test:
