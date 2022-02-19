@@ -7,7 +7,7 @@ import 'package:get/get.dart';
 
 class Login extends StatelessWidget {
   Login({Key? key}) : super(key: key);
-  final authController = Get.put(Controller());
+  final authController = Get.put(AuthController());
   String email = '', password = '';
 
   @override
@@ -16,7 +16,7 @@ class Login extends StatelessWidget {
       body: Center(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0),
-          child: GetBuilder<Controller>(
+          child: GetBuilder<AuthController>(
             builder: (controller) => Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.stretch,

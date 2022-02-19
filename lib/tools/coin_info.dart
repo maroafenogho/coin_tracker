@@ -5,7 +5,7 @@ class CoinInfo {
 
   CoinInfo(this.coinName, this.fiat, this.coinPrice);
 
-  factory CoinInfo.fromJson(Map coin) {
+  factory CoinInfo.fromJson(Map<String, dynamic> coin) {
     return CoinInfo(
         coin["asset_id_base"], coin["asset_id_quote"], coin["rate"]);
   }

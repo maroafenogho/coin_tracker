@@ -55,13 +55,16 @@ class NotificationService {
       NotificationDetails(android: androidPlatformChannelSpecifics);
 
   Future<void> showNotifications() async {
-    await flutterLocalNotificationsPlugin.show(
-      0,
-      'Coin Alert',
-      'BTC price is ${apiController.btcPrice} and Eth price is ${apiController.ethPrice}',
-      platformChannelSpecifics,
-      payload: 'Notification Payload',
-    ).then((value) => print('okok'));
+    await apiController.getBtcPrice();
+    await flutterLocalNotificationsPlugin
+        .show(
+          0,
+          'Coin Alert',
+          'BTC price is ${apiController.btcPrice} and Eth price is ${apiController.ethPrice}',
+          platformChannelSpecifics,
+          payload: 'Notification Payload',
+        )
+        .then((value) => print('okok'));
   }
 
   Future<void> scheduleNotifications() async {
@@ -83,7 +86,6 @@ class NotificationService {
     )
         .then((value) {
       print('Scheduled');
-
     });
   }
 }

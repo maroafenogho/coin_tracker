@@ -1,29 +1,45 @@
 import 'dart:io';
-import 'dart:ui';
+// import 'package:flutter/services.dart';
+import 'dart:async';
 import 'package:coin_tracker/tools/background_worker.dart';
 import 'package:coin_tracker/tools/notificaton_handler.dart';
-
 import 'package:coin_tracker/tools/wrapper.dart';
 import 'package:firebase_core/firebase_core.dart';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:workmanager/workmanager.dart';
+import 'package:flutter_background_service/flutter_background_service.dart';
+
+const myTask = "syncWithTheBackEnd";
+void callbackDispatcher() {
+  Workmanager().executeTask((task, inputData) async {
+    await NotificationService().showNotifications();
+    switch (task) {
+      case myTask:
+        print("this method was called from native!");
+        break;
+      case Workmanager.iOSBackgroundTask:
+        print("iOS background fetch delegate ran");
+        break;
+    }
+    //simpleTask will be emitted here.
+    return Future.value(true);
+  });
+}
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Workmanager()
+      .initialize(callbackDispatcher, isInDebugMode: true)
+      .then((value) => print('done'));
   await Firebase.initializeApp();
   await Hive.initFlutter();
-  await Hive.openBox('coins');
   HttpOverrides.global = MyHttpOverrides();
   await NotificationService().init().then((value) {
     print('Notifications initialized');
-    BackgroundService().init();
-    BackgroundService().registerOneOff();
-    BackgroundService().registerRecurrentTask();
   });
+  await BackgroundService().initializeService();
   runApp(const MyApp());
 }
 

@@ -3,7 +3,7 @@ import 'package:coin_tracker/tools/user.dart';
 import 'package:firebase_auth/firebase_auth.dart' as auth;
 import 'package:get/get.dart';
 
-class Controller extends GetxController {
+class AuthController extends GetxController {
   bool isLoading = false;
   final auth.FirebaseAuth _firebaseAuth = auth.FirebaseAuth.instance;
   User? _userFromFirebase(auth.User? user) {

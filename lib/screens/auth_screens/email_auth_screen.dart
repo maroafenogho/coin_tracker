@@ -7,7 +7,7 @@ import '../../tools/auth_service.dart';
 
 class SignUp extends StatelessWidget {
   SignUp({Key? key}) : super(key: key);
-  final authController = Get.put(Controller());
+  final authController = Get.put(AuthController());
   String email = '', password = '', confirmPassword = '', displayName = '';
 
   @override
@@ -17,7 +17,7 @@ class SignUp extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0),
           child: Center(
-            child: GetBuilder<Controller>(
+            child: GetBuilder<AuthController>(
               builder: (_) => SingleChildScrollView(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
