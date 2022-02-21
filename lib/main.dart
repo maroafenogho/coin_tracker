@@ -2,6 +2,7 @@ import 'dart:io';
 // import 'package:flutter/services.dart';
 import 'dart:async';
 import 'package:coin_tracker/tools/background_worker.dart';
+
 import 'package:coin_tracker/tools/notificaton_handler.dart';
 import 'package:coin_tracker/tools/wrapper.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -9,7 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:workmanager/workmanager.dart';
-import 'package:flutter_background_service/flutter_background_service.dart';
+
 
 const myTask = "syncWithTheBackEnd";
 void callbackDispatcher() {
@@ -17,10 +18,10 @@ void callbackDispatcher() {
     await NotificationService().showNotifications();
     switch (task) {
       case myTask:
-        print("this method was called from native!");
+        // print("this method was called from native!");
         break;
       case Workmanager.iOSBackgroundTask:
-        print("iOS background fetch delegate ran");
+        // print("iOS background fetch delegate ran");
         break;
     }
     //simpleTask will be emitted here.
@@ -31,15 +32,14 @@ void callbackDispatcher() {
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Workmanager()
-      .initialize(callbackDispatcher, isInDebugMode: true)
-      .then((value) => print('done'));
+      .initialize(callbackDispatcher, isInDebugMode: true);
   await Firebase.initializeApp();
   await Hive.initFlutter();
+  await Hive.openBox('coins').then((value) => print('box opened'));
   HttpOverrides.global = MyHttpOverrides();
   await NotificationService().init().then((value) {
     print('Notifications initialized');
   });
-  await BackgroundService().initializeService();
   runApp(const MyApp());
 }
 

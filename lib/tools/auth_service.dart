@@ -18,6 +18,10 @@ class AuthController extends GetxController {
     return _firebaseAuth.authStateChanges().map(_userFromFirebase);
   }
 
+  String get userName {
+    return _firebaseAuth.currentUser!.displayName!;
+  }
+
   void sendVerEmail() {
     auth.User? firebaseUser = _firebaseAuth.currentUser;
     if (firebaseUser != null) {
@@ -41,7 +45,6 @@ class AuthController extends GetxController {
     String password,
     String displayName,
   ) async {
-    print('touch');
     final credential = await _firebaseAuth
         .createUserWithEmailAndPassword(
       email: email,
@@ -101,7 +104,7 @@ class AuthController extends GetxController {
 
   void loading() {
     isLoading = !isLoading;
-    print(isLoading);
+
     update();
   }
 }

@@ -1,18 +1,18 @@
-import 'package:coin_tracker/tools/coin_info.dart';
+import 'package:coin_tracker/tools/hive/hiveviewmodel.dart';
 import 'package:coin_tracker/tools/repo/coinviewmanager.dart';
-import 'package:coin_tracker/tools/repo/maincoinrepo.dart';
-import 'package:coin_tracker/tools/repo/coinsviewmodel.dart';
 import 'package:flutter/material.dart';
 
 class CoinTile extends StatelessWidget {
-  const CoinTile({Key? key, required this.coins}) : super(key: key);
-  final List<CoinViewManager> coins;
+  const CoinTile({Key? key, required this.coinList}) : super(key: key);
+  // final List<CoinViewManager> coins;
+  final List<HiveViewModel> coinList;
 
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
+      reverse: true,
       itemBuilder: (context, index) {
-        final coin = coins[index];
+        final coin = coinList[index];
         return Card(
           child: Container(
             padding: EdgeInsets.symmetric(horizontal: 8.0),
@@ -23,14 +23,15 @@ class CoinTile extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    '${coin.coinName} is currently ${coin.coinPrice} ${coin.fiatCurrency}',
+                    'BTC is ${coin.btcPrice}USD and Eth is currently ${coin.ethPrice}USD ',
                     style: const TextStyle(
-                      fontSize: 18,
+                      fontSize: 16,
                       fontWeight: FontWeight.w400,
                     ),
                   ),
                   Text(
-                    '${DateTime.now().hour}:${DateTime.now().minute},  ${DateTime.now().day}/${DateTime.now().month}/${DateTime.now().year}',
+                    coin.time,
+                    // '${DateTime.now().hour}:${DateTime.now().minute},  ${DateTime.now().day}/${DateTime.now().month}/${DateTime.now().year}',
                     style: const TextStyle(
                       fontSize: 14,
                       color: Colors.green,
@@ -43,7 +44,7 @@ class CoinTile extends StatelessWidget {
           ),
         );
       },
-      itemCount: coins.length,
+      itemCount: coinList.length,
     );
   }
 }

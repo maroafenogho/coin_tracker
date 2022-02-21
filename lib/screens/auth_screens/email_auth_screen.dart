@@ -97,7 +97,7 @@ class SignUp extends StatelessWidget {
                       onPressed: () {
                         Get.to(() =>  Login());
                       },
-                      child: Text('Go to Login page'),
+                      child: const Text('Go to Login page'),
                     ),
                   ],
                 ),

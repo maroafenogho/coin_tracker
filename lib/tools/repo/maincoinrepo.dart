@@ -12,7 +12,7 @@ class MainCoinRepo implements CoinRepo {
   List<String> asset = ['BTC', 'ETH'];
 
   @override
-  Future<List<CoinInfo>> getBtcInfo() async {
+  Future<List<CoinInfo>> getAssetsInfo() async {
     List<CoinInfo> coinList = [];
     for (var coin in asset) {
       String newUrl = '$url/$coin/USD?apiKey=$apiKey';

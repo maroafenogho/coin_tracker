@@ -82,13 +82,13 @@ class Login extends StatelessWidget {
                   onPressed: () {
                     Get.to(() => SignUp());
                   },
-                  child: Text('Go to Registration page'),
+                  child: const Text('Go to Registration page'),
                 ),
                 TextButton(
                   onPressed: () {
                     authController.signOut();
                   },
-                  child: Text('logout'),
+                  child: const Text('logout'),
                 ),
               ],
             ),

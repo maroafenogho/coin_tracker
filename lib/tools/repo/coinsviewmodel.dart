@@ -10,7 +10,7 @@ class CoinsViewModel extends GetxController {
   int? btcPrice;
 
   Future<void> getCoins() async {
-    final results = await MainCoinRepo().getBtcInfo();
+    final results = await MainCoinRepo().getAssetsInfo();
     coins = results.map((info) => CoinViewManager(coinInfo: info)).toList();
     print(DateTime.now());
     btcPrice = coins[0].coinPrice;
