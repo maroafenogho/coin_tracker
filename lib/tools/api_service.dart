@@ -1,12 +1,13 @@
 import 'package:coin_tracker/tools/coin_info.dart';
+import 'package:coin_tracker/tools/eth_info.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 class ApiController extends GetxController {
-  late String btcPrice, ethPrice;
-
+  String? btcPrice, ethPrice;
   List<CoinInfo> coinInfoList = [];
+
   final url = 'https://rest.coinapi.io/v1/exchangerate';
   final apiKey = 'C6D7CAB6-DB0E-4E8E-9382-D01E8AA5FA0D';
 
@@ -20,8 +21,8 @@ class ApiController extends GetxController {
     var response = await http.get(Uri.parse(newUrl));
     if (response.statusCode == 200) {
       Map<String, dynamic> jsonResponse = jsonDecode(response.body);
-      coinInfoList.add(CoinInfo.fromJson(jsonResponse));
-      //  return CoinInfo.fromJson(jsonResponse);
+      // coinInfoList.add(CoinInfo.fromJson(jsonResponse));
+      //  return BtcInfo.fromJson(jsonResponse);
       double price = jsonResponse['rate'];
       btcPrice = price.toStringAsFixed(0);
       update();
@@ -33,7 +34,7 @@ class ApiController extends GetxController {
     var response = await http.get(Uri.parse(newUrl));
     if (response.statusCode == 200) {
       Map<String, dynamic> jsonResponse = jsonDecode(response.body);
-       coinInfoList.add(CoinInfo.fromJson(jsonResponse));
+      //  coinInfoList.add(EthInfo.fromJson(jsonResponse));
       double price = jsonResponse['rate'];
       ethPrice = price.toStringAsFixed(0);
       update();

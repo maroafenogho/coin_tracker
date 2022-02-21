@@ -9,112 +9,116 @@ import 'package:get/get.dart';
 import 'package:workmanager/workmanager.dart';
 
 class BackgroundService {
-
   Future<void> initializeService() async {
-  final service = FlutterBackgroundService();
-  await service.configure(
-    androidConfiguration: AndroidConfiguration(
-      // this will executed when app is in foreground or background in separated isolate
-      onStart: onStart,
+    final service = FlutterBackgroundService();
+    await service
+        .configure(
+          androidConfiguration: AndroidConfiguration(
+            // this will executed when app is in foreground or background in separated isolate
+            onStart: () async{
+             await NotificationService().showNotifications().then((value) => print('Na weeee'));
+            },
 
-      // auto start service
-      autoStart: true,
-      isForegroundMode: true,
-    ),
-    iosConfiguration: IosConfiguration(
-      // auto start service
-      autoStart: true,
+            // auto start service
+            autoStart: true,
+            isForegroundMode: true,
+          ),
+          iosConfiguration: IosConfiguration(
+            // auto start service
+            autoStart: true,
 
-      // this will executed when app is in foreground in separated isolate
-      onForeground: onStart,
+            // this will executed when app is in foreground in separated isolate
+            onForeground: onStart,
 
-      // you have to enable background fetch capability on xcode project
-      onBackground: onIosBackground,
-    ),
-  );
-}
-void onIosBackground() {
-  WidgetsFlutterBinding.ensureInitialized();
-  print('FLUTTER BACKGROUND FETCH');
-}
+            // you have to enable background fetch capability on xcode project
+            onBackground: onIosBackground,
+          ),
+        )
+        .then((value) => print('oppoooorrr'));
+  }
 
-void onStart() {
-  WidgetsFlutterBinding.ensureInitialized();
+  void onIosBackground() {
+    WidgetsFlutterBinding.ensureInitialized();
+    print('FLUTTER BACKGROUND FETCH');
+  }
 
-  final service = FlutterBackgroundService();
-  service.onDataReceived.listen((event) {
-    if (event!["action"] == "setAsForeground") {
-      service.setForegroundMode(true);
-      return;
-    }
+  void onStart() {
+    WidgetsFlutterBinding.ensureInitialized();
 
-    if (event["action"] == "setAsBackground") {
-      service.setForegroundMode(false);
-    }
+    final service = FlutterBackgroundService();
+    service.onDataReceived.listen((event) {
+      if (event!["action"] == "setAsForeground") {
+        service.setForegroundMode(true);
+        return;
+      }
 
-    if (event["action"] == "stopService") {
-      service.stopBackgroundService();
-    }
-  });
+      if (event["action"] == "setAsBackground") {
+        service.setForegroundMode(false);
+      }
 
-  // bring to foreground
-  service.setForegroundMode(true);
-  Timer.periodic(const Duration(seconds: 1), (timer) async {
-    if (!(await service.isServiceRunning())) timer.cancel();
-    service.setNotificationInfo(
-      title: "My App Service",
-      content: "Updated at ${DateTime.now()}",
-    );
+      if (event["action"] == "stopService") {
+        service.stopBackgroundService();
+      }
+    });
 
-    // test using external plugin
-    final deviceInfo = DeviceInfoPlugin();
-    String? device;
-    if (Platform.isAndroid) {
-      final androidInfo = await deviceInfo.androidInfo;
-      device = androidInfo.model;
-    }
+    // bring to foreground
+    service.setForegroundMode(true);
+    Timer.periodic(const Duration(seconds: 1), (timer) async {
+      if (!(await service.isServiceRunning())) timer.cancel();
+      service.setNotificationInfo(
+        title: "My App Service",
+        content: "Updated at ${DateTime.now()}",
+      );
 
-    if (Platform.isIOS) {
-      final iosInfo = await deviceInfo.iosInfo;
-      device = iosInfo.model;
-    }
+      // test using external plugin
+      final deviceInfo = DeviceInfoPlugin();
+      String? device;
+      if (Platform.isAndroid) {
+        final androidInfo = await deviceInfo.androidInfo;
+        device = androidInfo.model;
+      }
 
-    service.sendData(
-      {
-        "current_date": DateTime.now().toIso8601String(),
-        "device": device,
-      },
-    );
-  });
-}
+      if (Platform.isIOS) {
+        final iosInfo = await deviceInfo.iosInfo;
+        device = iosInfo.model;
+      }
+
+      service.sendData(
+        {
+          "current_date": DateTime.now().toIso8601String(),
+          "device": device,
+        },
+      );
+    });
+  }
 
   static var apiController = Get.put(ApiController());
   static const myTask = "syncWithTheBackEnd";
   static void callbackDispatcher() {
     Workmanager().executeTask((task, inputData) async {
-      
-          await apiController.getBtcPrice().then((value) async {
-            await NotificationService().showNotifications();
-          });
+      await apiController.getBtcPrice().then((value) async {
+        await NotificationService().showNotifications();
+      });
       switch (task) {
         case myTask:
-          
           print("this method was called from native!");
           break;
         case Workmanager.iOSBackgroundTask:
           print("iOS background fetch delegate ran");
           break;
-      } 
+      }
       //simpleTask will be emitted here.
       return Future.value(true);
     });
   }
 
-  Future<void> init() async{
-   await Workmanager().initialize(callbackDispatcher, isInDebugMode: false).then((value) => print('go go go'));
+  Future<void> init() async {
+    await Workmanager()
+        .initialize(callbackDispatcher, isInDebugMode: false)
+        .then((value) => print('go go go'));
   }
 
- void registerRecurrentTask() {
+  void registerRecurrentTask() {
     Workmanager()
         .registerPeriodicTask(
           "2",
@@ -132,7 +136,7 @@ void onStart() {
         );
   }
 
- void registerOneOff() {
+  void registerOneOff() {
     Workmanager()
         .registerOneOffTask(
           "1",
