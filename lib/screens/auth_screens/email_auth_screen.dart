@@ -54,7 +54,7 @@ class SignUp extends StatelessWidget {
                         password = typedText;
                       },
                       obscureText: true,
-                      inputType: TextInputType.none,
+                      inputType: TextInputType.name,
                     ),
                     authController.warningLength == ''
                         ? Container()
@@ -74,7 +74,7 @@ class SignUp extends StatelessWidget {
                             : authController.showWarningDifferent();
                       },
                       obscureText: true,
-                      inputType: TextInputType.none,
+                      inputType: TextInputType.name,
                     ),
                     authController.warningDifferent == ''
                         ? Container()
