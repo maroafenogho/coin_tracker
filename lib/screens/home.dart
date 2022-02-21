@@ -1,4 +1,4 @@
-import 'package:coin_tracker/tools/api_service.dart';
+
 import 'package:coin_tracker/tools/auth_service.dart';
 import 'package:coin_tracker/tools/background_worker.dart';
 import 'package:coin_tracker/tools/coin_tile.dart';
@@ -24,10 +24,10 @@ class HomeScreen extends StatelessWidget {
                 Container(
                   child: TextButton(
                       onPressed: () {
-                        vmController.getBtc();
+                        vmController.getCoins();
                         // apiController.getCoinInfo();
                       },
-                      child: Text('data')),
+                      child: Text('Get Current prices')),
                 ),
                 Container(
                   child: TextButton(

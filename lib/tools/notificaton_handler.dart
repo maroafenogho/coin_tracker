@@ -1,5 +1,6 @@
 import 'package:coin_tracker/screens/home.dart';
-import 'package:coin_tracker/tools/api_service.dart';
+import 'package:coin_tracker/tools/repo/coinsviewmodel.dart';
+
 import 'package:flutter/material.dart';
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
@@ -7,7 +8,7 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
 
 class NotificationService {
-  final apiController = Get.put(ApiController());
+  final apiController = Get.put(CoinsViewModel());
   static final NotificationService _notificationService =
       NotificationService._internal();
 
@@ -55,7 +56,7 @@ class NotificationService {
       NotificationDetails(android: androidPlatformChannelSpecifics);
 
   Future<void> showNotifications() async {
-    await apiController.getBtcPrice();
+    await apiController.getCoins();
     await flutterLocalNotificationsPlugin
         .show(
           0,

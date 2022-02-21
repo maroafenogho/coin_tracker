@@ -1,20 +1,20 @@
 import 'package:coin_tracker/tools/repo/coinviewmanager.dart';
-import 'package:coin_tracker/tools/repo/coinrepo.dart';
+import 'package:coin_tracker/tools/repo/maincoinrepo.dart';
 
 import 'package:get/get.dart';
 
 class CoinsViewModel extends GetxController {
   List<CoinViewManager> coins = [];
 
-
   int? ethPrice;
   int? btcPrice;
 
-  Future<void> getBtc() async {
-    final results = await MainRepo().getBtcInfo();
+  Future<void> getCoins() async {
+    final results = await MainCoinRepo().getBtcInfo();
     coins = results.map((info) => CoinViewManager(coinInfo: info)).toList();
-    print(coins);
-    btcPrice = coins[1].coinPrice;
+    print(DateTime.now());
+    btcPrice = coins[0].coinPrice;
+    ethPrice = coins[1].coinPrice;
     print(btcPrice);
     update();
   }

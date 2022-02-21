@@ -1,7 +1,9 @@
 import 'dart:async';
 import 'dart:io';
+import 'package:coin_tracker/tools/repo/coinsviewmodel.dart';
+import 'package:coin_tracker/tools/repo/coinviewmanager.dart';
 import 'package:device_info_plus/device_info_plus.dart';
-import 'package:coin_tracker/tools/api_service.dart';
+// import 'package:coin_tracker/tools/api_service.dart';
 import 'package:coin_tracker/tools/notificaton_handler.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_background_service/flutter_background_service.dart';
@@ -92,11 +94,11 @@ class BackgroundService {
     });
   }
 
-  static var apiController = Get.put(ApiController());
+  static var apiController = Get.put(CoinsViewModel());
   static const myTask = "syncWithTheBackEnd";
   static void callbackDispatcher() {
     Workmanager().executeTask((task, inputData) async {
-      await apiController.getBtcPrice().then((value) async {
+      await apiController.getCoins().then((value) async {
         await NotificationService().showNotifications();
       });
       switch (task) {
