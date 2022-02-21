@@ -21,61 +21,60 @@ class HomeScreen extends StatelessWidget {
     hiveVm.getHiveDb();
     return Scaffold(
       body: SafeArea(
-          child: GetBuilder<HiveListViewModel>(
-        builder: ((_) => Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text('Hello ${authController.userName}'),
-                Row(
-                  children: [
-                    SizedBox(
-                      child: TextButton(
-                          onPressed: () {
-                            vmController.getCoins().then((value) {
-                              hiveVm.updateHiveDb();
-                              hiveVm.getHiveDb();
-                            });
-                            HiveService().getCoinDetails();
-                            // apiController.getCoinInfo();
-                          },
-                          child: const Text('Get Current prices')),
-                    ),
-                    SizedBox(
-                      child: TextButton(
-                          onPressed: () {
-                            authController.signOut();
-                            // Workmanager().cancelAll();
-                          },
-                          child: const Text('logout')),
-                    ),
-                    SizedBox(
-                      child: TextButton(
-                          onPressed: () async {
-                            await NotificationService().showNotifications();
-                          },
-                          child: const Text('Show notification')),
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.85,
-                  width: MediaQuery.of(context).size.width,
-                  child: hiveVm.hiveDbList.isEmpty
-                      ? SizedBox(
-                          height: MediaQuery.of(context).size.height,
-                          width: MediaQuery.of(context).size.width,
-                          // color: Colors.white,
-                          child: const Center(
-                            child: CircularProgressIndicator(),
+        child: GetBuilder<HiveListViewModel>(
+          builder: ((_) => Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text('Hello ${authController.userName}'),
+                  Row(
+                    children: [
+                      SizedBox(
+                        child: TextButton(
+                            onPressed: () {
+                              vmController.getCoins().then((value) {
+                                hiveVm.updateHiveDb();
+                                hiveVm.getHiveDb();
+                              });
+                            },
+                            child: const Text('Get Current prices')),
+                      ),
+                      SizedBox(
+                        child: TextButton(
+                            onPressed: () {
+                              authController.signOut();
+                              // Workmanager().cancelAll();
+                            },
+                            child: const Text('logout')),
+                      ),
+                      SizedBox(
+                        child: TextButton(
+                            onPressed: () async {
+                              await NotificationService().showNotifications();
+                            },
+                            child: const Text('Show notification')),
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.85,
+                    width: MediaQuery.of(context).size.width,
+                    child: hiveVm.hiveDbList.isEmpty
+                        ? SizedBox(
+                            height: MediaQuery.of(context).size.height,
+                            width: MediaQuery.of(context).size.width,
+                            // color: Colors.white,
+                            child: const Center(
+                              child: CircularProgressIndicator(),
+                            ),
+                          )
+                        : SizedBox(
+                            child: CoinTile(coinList: hiveVm.hiveDbList),
                           ),
-                        )
-                      : SizedBox(
-                          child: CoinTile(coinList: hiveVm.hiveDbList),
-                        ),
-                )
-              ],
-            )),
-      )),
+                  ),
+                ],
+              )),
+        ),
+      ),
     );
   }
 }

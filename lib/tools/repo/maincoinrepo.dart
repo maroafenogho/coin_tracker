@@ -7,7 +7,7 @@ import 'package:http/http.dart' as http;
 
 class MainCoinRepo implements CoinRepo {
   final url = 'https://rest.coinapi.io/v1/exchangerate';
-  final apiKey = 'C6D7CAB6-DB0E-4E8E-9382-D01E8AA5FA0D';
+  final apiKey = 'ABD08DD2-2665-4A65-8BBF-CF3162D66BDF';
 
   List<String> asset = ['BTC', 'ETH'];
 
