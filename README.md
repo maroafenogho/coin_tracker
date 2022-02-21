@@ -20,4 +20,6 @@ The app uses the following packages/dependencies:
 
 The app is implemented using the MVVM and Repository design patterns.
 
-<img src="./cointracker1.jpg">
+The homescreen currently looks like the image below:
+
+<img src="./cointracker1.png">
