@@ -1,6 +1,6 @@
 class HiveModel {
   String? coinName;
-  String? coinPrice;
+  int? coinPrice;
   String? time;
   HiveModel({this.coinName, this.coinPrice, this.time});
 

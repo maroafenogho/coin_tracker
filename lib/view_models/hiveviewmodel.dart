@@ -5,7 +5,7 @@ class HiveViewModel {
   HiveViewModel({this.hiveModel});
 
   int get coinPrice {
-    return int.parse(hiveModel!.coinPrice!);
+    return hiveModel!.coinPrice!;
   }
 
   String get coinName {

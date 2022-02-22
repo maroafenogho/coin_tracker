@@ -30,8 +30,8 @@ class HomeScreen extends StatelessWidget {
                     children: [
                       SizedBox(
                         child: TextButton(
-                            onPressed: () {
-                              vmController.getCoins().then((value) {
+                            onPressed: () async {
+                              await vmController.getCoins().then((value) {
                                 hiveVm.updateHiveDb();
                                 hiveVm.getHiveDb();
                               });
@@ -41,7 +41,8 @@ class HomeScreen extends StatelessWidget {
                       SizedBox(
                         child: TextButton(
                             onPressed: () {
-                              authController.signOut();
+                              // authController.signOut();
+                              HiveService().delete();
                               // Workmanager().cancelAll();
                             },
                             child: const Text('logout')),

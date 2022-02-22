@@ -3,11 +3,8 @@ import 'package:hive_flutter/hive_flutter.dart';
 
 class HiveService {
   var coinsBox = Hive.box('coins');
-  Future addCoinDetails({
-    String? coinName,
-    int? coinPrice,
-    String? time,
-  }) async {
+  Future addCoinDetails(
+      {String? coinName, int? coinPrice, String? time}) async {
     await coinsBox
         .add({'coinName': coinName, 'coinPrice': coinPrice, 'time': time}).then(
             (value) => print(coinsBox));
