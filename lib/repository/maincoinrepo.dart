@@ -1,8 +1,7 @@
 import 'dart:convert';
 
-import 'package:coin_tracker/tools/coin_info.dart';
-import 'package:coin_tracker/tools/eth_info.dart';
-import 'package:coin_tracker/tools/repo/coinrepo.dart';
+import 'package:coin_tracker/models/coin_info.dart';
+import 'package:coin_tracker/repository/coinrepo.dart';
 import 'package:http/http.dart' as http;
 
 class MainCoinRepo implements CoinRepo {

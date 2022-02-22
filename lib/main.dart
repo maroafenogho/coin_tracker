@@ -1,10 +1,10 @@
 import 'dart:io';
 // import 'package:flutter/services.dart';
 import 'dart:async';
-import 'package:coin_tracker/tools/background_worker.dart';
+import 'package:coin_tracker/services/background_worker.dart';
 
-import 'package:coin_tracker/tools/notificaton_handler.dart';
-import 'package:coin_tracker/tools/wrapper.dart';
+import 'package:coin_tracker/services/notificaton_handler.dart';
+import 'package:coin_tracker/views/wrapper.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

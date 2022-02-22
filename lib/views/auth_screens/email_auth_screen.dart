@@ -1,9 +1,9 @@
-import 'package:coin_tracker/screens/auth_screens/login.dart';
-import 'package:coin_tracker/widgets/edittext.dart';
+import 'package:coin_tracker/views/auth_screens/login.dart';
+import 'package:coin_tracker/views/widgets/edittext.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../tools/auth_service.dart';
+import '../../services/auth_service.dart';
 
 class SignUp extends StatelessWidget {
   SignUp({Key? key}) : super(key: key);

@@ -1,11 +1,13 @@
-import 'package:coin_tracker/tools/hive/hive_service.dart';
-import 'package:coin_tracker/tools/hive/hiveviewmodel.dart';
-import 'package:coin_tracker/tools/repo/coinsviewmodel.dart';
+import 'package:coin_tracker/services/hive_service.dart';
+import 'package:coin_tracker/view_models/coinviewmanager.dart';
+import 'package:coin_tracker/view_models/hiveviewmodel.dart';
+import 'package:coin_tracker/view_models/coinsviewmodel.dart';
 import 'package:get/get.dart';
 
 class HiveListViewModel extends GetxController {
   List<HiveViewModel> hiveDbList = [];
   final vmController = Get.put(CoinsViewModel());
+  final coinData = CoinViewManager();
 
   void getHiveDb() {
     final result = HiveService().getCoins();
@@ -16,9 +18,9 @@ class HiveListViewModel extends GetxController {
 
   void updateHiveDb() {
     HiveService().addCoinDetails(
-      btcPrice: vmController.btcPrice,
-      ethPrice: vmController.ethPrice,
-      date:
+      coinName: coinData.coinName,
+      coinPrice: coinData.coinPrice,
+      time:
           '${DateTime.now().hour}:${DateTime.now().minute},  ${DateTime.now().day}/${DateTime.now().month}/${DateTime.now().year}',
     );
     update();

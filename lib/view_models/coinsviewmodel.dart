@@ -1,5 +1,5 @@
-import 'package:coin_tracker/tools/repo/coinviewmanager.dart';
-import 'package:coin_tracker/tools/repo/maincoinrepo.dart';
+import 'package:coin_tracker/view_models/coinviewmanager.dart';
+import 'package:coin_tracker/repository/maincoinrepo.dart';
 
 import 'package:get/get.dart';
 

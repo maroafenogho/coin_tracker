@@ -1,5 +1,5 @@
-import 'package:coin_tracker/screens/auth_screens/login.dart';
-import 'package:coin_tracker/tools/user.dart';
+import 'package:coin_tracker/views/auth_screens/login.dart';
+import 'package:coin_tracker/models/user.dart';
 import 'package:firebase_auth/firebase_auth.dart' as auth;
 import 'package:get/get.dart';
 

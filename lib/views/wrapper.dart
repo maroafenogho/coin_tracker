@@ -1,7 +1,7 @@
-import 'package:coin_tracker/screens/auth_screens/login.dart';
-import 'package:coin_tracker/screens/home.dart';
-import 'package:coin_tracker/tools/auth_service.dart';
-import 'package:coin_tracker/tools/user.dart';
+import 'package:coin_tracker/views/auth_screens/login.dart';
+import 'package:coin_tracker/views/home.dart';
+import 'package:coin_tracker/services/auth_service.dart';
+import 'package:coin_tracker/models/user.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

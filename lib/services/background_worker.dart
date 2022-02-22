@@ -1,6 +1,6 @@
 import 'dart:async';
-import 'package:coin_tracker/tools/repo/coinsviewmodel.dart';
-import 'package:coin_tracker/tools/notificaton_handler.dart';
+import 'package:coin_tracker/view_models/coinsviewmodel.dart';
+import 'package:coin_tracker/services/notificaton_handler.dart';
 import 'package:get/get.dart';
 import 'package:workmanager/workmanager.dart';
 

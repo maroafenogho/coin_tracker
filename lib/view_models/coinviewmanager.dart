@@ -1,4 +1,4 @@
-import 'package:coin_tracker/tools/coin_info.dart';
+import 'package:coin_tracker/models/coin_info.dart';
 
 class CoinViewManager {
   CoinInfo? coinInfo;

@@ -1,11 +1,11 @@
-import 'package:coin_tracker/tools/auth_service.dart';
+import 'package:coin_tracker/services/auth_service.dart';
 
-import 'package:coin_tracker/tools/coin_tile.dart';
-import 'package:coin_tracker/tools/hive/hiveListViewModel.dart';
-import 'package:coin_tracker/tools/hive/hive_service.dart';
+import 'package:coin_tracker/views/widgets/coin_tile.dart';
+import 'package:coin_tracker/view_models/hiveListViewModel.dart';
+import 'package:coin_tracker/services/hive_service.dart';
 
-import 'package:coin_tracker/tools/notificaton_handler.dart';
-import 'package:coin_tracker/tools/repo/coinsviewmodel.dart';
+import 'package:coin_tracker/services/notificaton_handler.dart';
+import 'package:coin_tracker/view_models/coinsviewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

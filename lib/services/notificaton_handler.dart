@@ -1,5 +1,5 @@
-import 'package:coin_tracker/screens/home.dart';
-import 'package:coin_tracker/tools/repo/coinsviewmodel.dart';
+import 'package:coin_tracker/views/home.dart';
+import 'package:coin_tracker/view_models/coinsviewmodel.dart';
 
 import 'package:flutter/material.dart';
 import 'package:timezone/data/latest.dart' as tz;
