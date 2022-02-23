@@ -15,7 +15,7 @@ import 'package:workmanager/workmanager.dart';
 const myTask = "syncWithTheBackEnd";
 void callbackDispatcher() {
   Workmanager().executeTask((task, inputData) async {
-    await NotificationService().showNotifications();
+    // await NotificationService().showNotifications();
     switch (task) {
       case myTask:
         // print("this method was called from native!");

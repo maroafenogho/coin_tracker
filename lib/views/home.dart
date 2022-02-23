@@ -30,17 +30,16 @@ class HomeScreen extends StatelessWidget {
                         SizedBox(
                           child: TextButton(
                               onPressed: () async {
-                                // hiveVm.getOldPrices();
-                                // hiveVm.deleteDatabase();
-                                // await vmController.getCoins().then((value) {
-                                //   if (hiveVm.hiveDbList.isNotEmpty) {
-                                //     hiveVm.calculate();
-                                //   }
-                                //   hiveVm.updateHiveDb();
-                                //   hiveVm.getHiveDb();
-                                //   hiveVm.getNotificationsList();
-                                // });
-                                hiveVm.getNotificationsList();
+                                hiveVm.getOldPrices();
+                                await vmController.getCoins().then((value) {
+                                  if (hiveVm.hiveDbList.isNotEmpty) {
+                                    hiveVm.calculate();
+                                  }
+                                  hiveVm.updateHiveDb();
+                                  hiveVm.getHiveDb();
+                                  hiveVm.getNotificationsList();
+                                });
+                                // hiveVm.getNotificationsList();
                               },
                               child: const Text('Get Current prices')),
                         ),
@@ -48,8 +47,8 @@ class HomeScreen extends StatelessWidget {
                           child: TextButton(
                               onPressed: () {
                                 // hiveVm.getOldPrices();
-                                // authController.signOut();
-                                HiveService().delete();
+                                authController.signOut();
+                                // hiveVm.deleteDatabase();
                                 // Workmanager().cancelAll();
                               },
                               child: const Text('logout')),
@@ -57,7 +56,7 @@ class HomeScreen extends StatelessWidget {
                         SizedBox(
                           child: TextButton(
                               onPressed: () async {
-                                await NotificationService().showNotifications();
+                                // await NotificationService().showNotifications();
                               },
                               child: const Text('Show notification')),
                         ),

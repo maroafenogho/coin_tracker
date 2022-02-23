@@ -54,13 +54,13 @@ class NotificationService {
   final NotificationDetails platformChannelSpecifics =
       NotificationDetails(android: androidPlatformChannelSpecifics);
 
-  Future<void> showNotifications() async {
+  Future<void> showNotifications(String? string) async {
     await apiController.getCoins();
     await flutterLocalNotificationsPlugin
         .show(
           0,
           'Coin Alert',
-          'BTC price is ${apiController.btcPrice} and Eth price is ${apiController.ethPrice}',
+          string,
           platformChannelSpecifics,
           payload: 'Notification Payload',
         )

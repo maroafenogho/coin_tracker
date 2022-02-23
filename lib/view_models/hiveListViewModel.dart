@@ -1,4 +1,5 @@
 import 'package:coin_tracker/services/hive_service.dart';
+import 'package:coin_tracker/services/notificaton_handler.dart';
 import 'package:coin_tracker/view_models/coinviewmanager.dart';
 import 'package:coin_tracker/view_models/hiveviewmodel.dart';
 import 'package:coin_tracker/view_models/coinsviewmodel.dart';
@@ -12,6 +13,7 @@ class HiveListViewModel extends GetxController {
   List<CoinViewManager> coins = [];
   int? btcOld;
   int? ethOld;
+  var notificationService = NotificationService();
 
   String? ethWord;
   String? btcWord;
@@ -50,12 +52,18 @@ class HiveListViewModel extends GetxController {
       ethOld = hiveDbList[hiveDbList.length - 1].coinPrice;
       print(ethOld);
     } else {
+      Get.snackbar(
+        '',
+        'Touch again after a while to get price update',
+        duration: const Duration(seconds: 5),
+      );
       print(' database empty');
     }
     update();
   }
 
   void calculate() {
+    print('calculating');
     if (ethNew > ethOld!) {
       ethWord = 'increased';
       HiveService()
@@ -65,6 +73,8 @@ class HiveListViewModel extends GetxController {
               oldPrice: ethOld,
               newPrice: ethNew)
           .then((value) => getNotificationsList());
+      notificationService
+          .showNotifications('Eth $ethWord from \$$ethOld to \$$ethNew');
       print('Eth $ethWord from \$$ethOld to \$$ethNew');
       update();
     } else {
@@ -74,6 +84,8 @@ class HiveListViewModel extends GetxController {
           directionKeyword: ethWord,
           oldPrice: ethOld,
           newPrice: ethNew);
+      notificationService
+          .showNotifications('Eth $ethWord from \$$ethOld to \$$ethNew');
       print('Eth $ethWord from \$$ethOld to \$$ethNew');
       update();
     }
@@ -84,7 +96,8 @@ class HiveListViewModel extends GetxController {
           directionKeyword: btcWord,
           oldPrice: btcOld,
           newPrice: btcNew);
-
+      notificationService
+          .showNotifications('BTC $btcWord from \$$btcOld to \$$btcNew');
       print('BTC $btcWord from \$$btcOld to \$$btcNew');
       update();
     } else {
@@ -94,12 +107,15 @@ class HiveListViewModel extends GetxController {
           directionKeyword: btcWord,
           oldPrice: btcOld,
           newPrice: btcNew);
+      notificationService
+          .showNotifications('BTC $btcWord from \$$btcOld to \$$btcNew');
       print('BTC $btcWord from \$$btcOld to \$$btcNew');
       update();
     }
   }
 
   void updateHiveDb() {
+    deleteDatabase();
     coins = vmController.coins;
     for (var coinData in coins) {
       HiveService()

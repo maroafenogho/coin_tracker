@@ -33,6 +33,7 @@ class HiveService {
 
   delete() async {
     await coinsBox.clear().then((value) => print('done'));
+    // await notificationsBox.clear().then((value) => print('deleted'));
   }
 
   List<NotificationsModel> getNotifications() {
