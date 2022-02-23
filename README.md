@@ -9,6 +9,9 @@ With coin tracker, you would be able to get hourly notifications on the current 
 
 At the currrent app stage, users would be able to get the current prices of bitcoin and Ethereum at the tap of a button. 
 The current prices obtained are then stored in a map along with the time of retrieval. The map is immediately parsed into the local database provided before displaying the updated list in the homescreen. 
+## Update:
+The app allows users get the current prices of Ethereum and Bitcoin, checks them against the previous prices stored on the app's local database, and then determines if the price of the asset went up or down within the time period. After checking, the database is updated with the current price of the asset, its old price and increased/decreased keyword.
+
 
 The app uses the following packages/dependencies:
 
@@ -20,6 +23,8 @@ The app uses the following packages/dependencies:
 
 The app is implemented using the MVVM and Repository design patterns.
 
+
+
 The homescreen currently looks like the image below:
 
-<img src="./cointracker1.png">
+<img src="./cointracker.png">
