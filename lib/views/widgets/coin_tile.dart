@@ -1,10 +1,14 @@
+import 'package:coin_tracker/view_models/hiveListViewModel.dart';
 import 'package:coin_tracker/view_models/hiveviewmodel.dart';
+import 'package:coin_tracker/view_models/notificationsviewmodel.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class CoinTile extends StatelessWidget {
-  const CoinTile({Key? key, required this.coinList}) : super(key: key);
+  CoinTile({Key? key, required this.coinList}) : super(key: key);
   // final List<CoinViewManager> coins;
-  final List<HiveViewModel> coinList;
+  final List<NotificationsViewModel> coinList;
+  var hiveController = Get.put(HiveListViewModel());
 
   @override
   Widget build(BuildContext context) {
@@ -22,20 +26,20 @@ class CoinTile extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    '${coin.coinName} is \$${coin.coinPrice}',
+                    '${coin.coinName} ${coin.directionWord} from \$${coin.oldPrice} to \$${coin.newPrice}',
                     style: const TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.w400,
                     ),
                   ),
-                  Text(
-                    coin.time,
-                    style: const TextStyle(
-                      fontSize: 14,
-                      color: Colors.green,
-                      fontWeight: FontWeight.w400,
-                    ),
-                  ),
+                  // Text(
+                  //   coin.time,
+                  //   style: const TextStyle(
+                  //     fontSize: 14,
+                  //     color: Colors.green,
+                  //     fontWeight: FontWeight.w400,
+                  //   ),
+                  // ),
                 ],
               ),
             ),
@@ -46,3 +50,5 @@ class CoinTile extends StatelessWidget {
     );
   }
 }
+
+void calculate() {}

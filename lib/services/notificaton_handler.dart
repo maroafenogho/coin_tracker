@@ -3,7 +3,6 @@ import 'package:coin_tracker/view_models/coinsviewmodel.dart';
 
 import 'package:flutter/material.dart';
 import 'package:timezone/data/latest.dart' as tz;
-import 'package:timezone/timezone.dart' as tz;
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
 
@@ -76,6 +75,7 @@ class NotificationService {
       'BTC price is ${apiController.btcPrice} and Eth price is ${apiController.ethPrice}',
       RepeatInterval.hourly,
       const NotificationDetails(
+        
           android: AndroidNotificationDetails(
               'your channel id', 'your channel name',
               channelDescription: 'your channel description',
