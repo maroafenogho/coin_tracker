@@ -9,29 +9,11 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:flutter_background_service/flutter_background_service.dart';
-import 'package:workmanager/workmanager.dart';
-
-const myTask = "syncWithTheBackEnd";
-void callbackDispatcher() {
-  Workmanager().executeTask((task, inputData) async {
-    // await NotificationService().showNotifications();
-    switch (task) {
-      case myTask:
-        // print("this method was called from native!");
-        break;
-      case Workmanager.iOSBackgroundTask:
-        // print("iOS background fetch delegate ran");
-        break;
-    }
-    //simpleTask will be emitted here.
-    return Future.value(true);
-  });
-}
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   // await BackgroundService().initializeService();
+  await BackgroundWorker().initializeService();
   await Firebase.initializeApp();
   await Hive.initFlutter();
   await Hive.openBox('coins').then((value) => print('box opened'));
