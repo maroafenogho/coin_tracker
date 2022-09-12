@@ -1,4 +1,3 @@
-
 import 'package:coin_tracker/app/modules/coins/notifiers/coins_state_notifiers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -66,7 +65,7 @@ class CoinsHomepage extends StatelessWidget {
                                   child: Text(
                                     coins[index].priceChangePercent > 0
                                         ? '+${coins[index].priceChangePercent.toStringAsFixed(2)}%'
-                                        : '-${coins[index].priceChangePercent.toStringAsFixed(2)}%',
+                                        : '${coins[index].priceChangePercent.toStringAsFixed(2)}%',
                                     style: TextStyle(
                                       fontWeight: FontWeight.w500,
                                       fontSize: 14,
