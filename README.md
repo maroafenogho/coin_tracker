@@ -27,4 +27,5 @@ The app is implemented using the MVVM and Repository design patterns.
 
 The homescreen currently looks like the image below:
 
-<img src="./cointracker.png">
+<img src="./cointracker.png"> old look
+<img src="./new_look.png"> new look
