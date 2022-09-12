@@ -1,6 +1,5 @@
 import 'package:coin_tracker/app/modules/coins/screens/coins_list_page.dart';
 import 'package:coin_tracker/views/auth_screens/email_auth_screen.dart';
-import 'package:coin_tracker/views/home.dart';
 import 'package:coin_tracker/services/auth_service.dart';
 import 'package:coin_tracker/views/widgets/edittext.dart';
 import 'package:flutter/material.dart';
@@ -67,10 +66,10 @@ class Login extends StatelessWidget {
                     }).onError((error, stackTrace) {
                       authController.loading();
                       Get.snackbar(
-                          'Error',
-                          '$error ',
-                          duration: const Duration(seconds: 5),
-                        );
+                        'Error',
+                        '$error ',
+                        duration: const Duration(seconds: 5),
+                      );
                     });
                   },
                   child: authController.isLoading == false
