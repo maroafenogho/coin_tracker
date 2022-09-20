@@ -15,7 +15,7 @@ The app allows users get the current prices of Ethereum and Bitcoin, checks them
 
 The app uses the following packages/dependencies:
 
-* <a href="https://pub.dev/packages/get" target="_blank">Getx</a> for state management
+* <a href="https://pub.dev/packages/get" target="_blank">Getx</a> for state management.
 * Firebase for Authentication.
 * <a href="https://pub.dev/packages/hive" target="_blank">Hive</a> for offline database
 * <a href="https://pub.dev/packages/http" target="_blank">Http</a> for querying APIs

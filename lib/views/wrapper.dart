@@ -1,6 +1,8 @@
 import 'package:coin_tracker/app/modules/auth/notifiers/user_notifier.dart';
+import 'package:coin_tracker/app/modules/auth/screens/login.dart';
 import 'package:coin_tracker/app/modules/coins/notifiers/coins_state_notifiers.dart';
 import 'package:coin_tracker/app/modules/coins/screens/coins_list_page.dart';
+import 'package:coin_tracker/app/modules/home/screens/dashboard.dart';
 import 'package:coin_tracker/views/auth_screens/login.dart';
 import 'package:coin_tracker/views/home.dart';
 import 'package:coin_tracker/services/auth_service.dart';
@@ -52,10 +54,11 @@ class Wrapper extends ConsumerWidget {
     return user.when(
         data: (user) {
           if (user == null) {
-            return Login();
+            return LoginRiv();
           } else {
             // ref.read(coinsNotifierProvider.notifier).getCoins();
-            return const CoinsHomepage();
+            ref.read(loggedInUserProvider.notifier).state = user;
+            return const Dashboard();
           }
         },
         error: (error, stackTrace) {

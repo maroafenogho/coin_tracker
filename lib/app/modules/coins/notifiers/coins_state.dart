@@ -15,6 +15,7 @@ class CoinState extends Equatable {
   final List<Coins> coins;
 
   const CoinState({required this.coins, this.status = CoinStatus.initial});
+
   factory CoinState.initial() {
     return const CoinState(coins: []);
   }

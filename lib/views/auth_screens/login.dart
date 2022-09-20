@@ -10,6 +10,8 @@ class Login extends StatelessWidget {
   Login({Key? key}) : super(key: key);
   final authController = Get.put(AuthController());
   String email = '', password = '';
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -29,6 +31,7 @@ class Login extends StatelessWidget {
                   },
                   obscureText: false,
                   inputType: TextInputType.name,
+                  controller: emailController,
                 ),
                 const SizedBox(
                   height: 8.0,
@@ -40,6 +43,7 @@ class Login extends StatelessWidget {
                   },
                   obscureText: true,
                   inputType: TextInputType.name,
+                  controller: passwordController,
                 ),
                 const SizedBox(
                   height: 8.0,
@@ -67,10 +71,10 @@ class Login extends StatelessWidget {
                     }).onError((error, stackTrace) {
                       authController.loading();
                       Get.snackbar(
-                          'Error',
-                          '$error ',
-                          duration: const Duration(seconds: 5),
-                        );
+                        'Error',
+                        '$error ',
+                        duration: const Duration(seconds: 5),
+                      );
                     });
                   },
                   child: authController.isLoading == false

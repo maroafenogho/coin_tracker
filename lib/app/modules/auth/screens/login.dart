@@ -1,33 +1,41 @@
+import 'package:coin_tracker/app/modules/auth/notifiers/auth_state.dart';
+import 'package:coin_tracker/app/modules/auth/notifiers/user_notifier.dart';
 import 'package:coin_tracker/app/modules/coins/screens/coins_list_page.dart';
+import 'package:coin_tracker/app/modules/home/screens/dashboard.dart';
 import 'package:coin_tracker/views/auth_screens/email_auth_screen.dart';
 import 'package:coin_tracker/services/auth_service.dart';
 import 'package:coin_tracker/views/widgets/edittext.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
 
-class Login extends StatelessWidget {
-  Login({Key? key}) : super(key: key);
+class LoginRiv extends StatelessWidget {
+  LoginRiv({Key? key}) : super(key: key);
   final authController = Get.put(AuthController());
-  String email = '', password = '';
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0),
-          child: GetBuilder<AuthController>(
-            builder: (controller) => Column(
+      body: Consumer(
+        builder: (BuildContext context, WidgetRef ref, Widget? child) {
+          final authState = ref.watch(authNotifierProvider);
+          return Center(
+              child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
                 const Text('Email address:'),
                 EditText(
                   onChanged: (typedText) {
-                    email = typedText;
+                    ref.read(emailProvider.state).state = typedText;
                   },
                   obscureText: false,
                   inputType: TextInputType.name,
+                  controller: emailController,
                 ),
                 const SizedBox(
                   height: 8.0,
@@ -35,48 +43,60 @@ class Login extends StatelessWidget {
                 const Text('Password:'),
                 EditText(
                   onChanged: (typedText) {
-                    password = typedText;
+                    ref.read(passwordProvider.state).state = typedText;
                   },
                   obscureText: true,
                   inputType: TextInputType.name,
+                  controller: passwordController,
                 ),
                 const SizedBox(
                   height: 8.0,
                 ),
                 ElevatedButton(
                   onPressed: () {
-                    authController.loading();
-                    authController.signIn(email, password).then((user) {
-                      authController.loading();
-                      if (user!.emailVerified!) {
-                        Get.to(() => CoinsHomepage());
-                        Get.snackbar(
-                          'Login successful',
-                          'User authenticated with ${user.email} successfully',
-                          duration: const Duration(seconds: 5),
-                        );
-                      } else {
-                        authController.signOut();
-                        Get.snackbar(
-                          'Login Unuccessful',
-                          'Email Address not verified',
-                          duration: const Duration(seconds: 5),
-                        );
-                      }
-                    }).onError((error, stackTrace) {
-                      authController.loading();
-                      Get.snackbar(
-                        'Error',
-                        '$error ',
-                        duration: const Duration(seconds: 5),
-                      );
-                    });
+                    ref.read(authNotifierProvider.notifier).login(
+                        email: emailController.text,
+                        password: passwordController.text);
+
+                    if (authState.status == AuthStatus.success) {
+                      Get.to(() => Dashboard());
+                    }
+
+                    // final login = ref.watch(firebaseLoginProvider);
+                    // login.when(data: (user) {
+                    //   ref.read(authLoadingStateProvider.state).state = false;
+                    //   if (user != null) {
+                    //     if (user.emailVerified!) {
+                    //     } else {
+                    //       Get.snackbar(
+                    //         'Login Unuccessful',
+                    //         'Email Address not verified',
+                    //         duration: const Duration(seconds: 5),
+                    //       );
+                    //     }
+                    //   }
+                    // }, error: (error, stacktrace) {
+                    //   ref.read(authLoadingStateProvider.state).state = false;
+                    // }, loading: () {
+                    //   ref.read(authLoadingStateProvider.state).state = true;
+                    // });
                   },
-                  child: authController.isLoading == false
-                      ? const Text('Login')
-                      : const CircularProgressIndicator(
-                          color: Colors.white,
-                        ),
+                  child:
+                      // ref.watch(authLoadingStateProvider.notifier).state == true
+                      //     ? const CircularProgressIndicator(
+                      //         color: Colors.white,
+                      //       )
+                      //     : const Text('Login'),
+
+                      authState.status == AuthStatus.initial
+                          ? const Text('Login')
+                          : authState.status == AuthStatus.loading
+                              ? const CircularProgressIndicator(
+                                  color: Colors.white,
+                                )
+                              : authState.status == AuthStatus.success
+                                  ? const Text('Login')
+                                  : const Text('Login'),
                 ),
                 TextButton(
                   onPressed: () {
@@ -92,8 +112,8 @@ class Login extends StatelessWidget {
                 ),
               ],
             ),
-          ),
-        ),
+          ));
+        },
       ),
     );
   }

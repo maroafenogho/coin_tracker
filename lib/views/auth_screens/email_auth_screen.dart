@@ -9,6 +9,10 @@ class SignUp extends StatelessWidget {
   SignUp({Key? key}) : super(key: key);
   final authController = Get.put(AuthController());
   String email = '', password = '', confirmPassword = '', displayName = '';
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
+  final confirmPasswordController = TextEditingController();
+  final displayNameController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -25,6 +29,7 @@ class SignUp extends StatelessWidget {
                   children: <Widget>[
                     const Text('Email address:'),
                     EditText(
+                      controller: emailController,
                       onChanged: (typedText) {
                         email = typedText;
                       },
@@ -36,6 +41,7 @@ class SignUp extends StatelessWidget {
                     ),
                     const Text('Username:'),
                     EditText(
+                      controller: displayNameController,
                       onChanged: (typedText) {
                         displayName = typedText;
                       },
@@ -44,6 +50,7 @@ class SignUp extends StatelessWidget {
                     ),
                     const Text('Password:'),
                     EditText(
+                      controller: passwordController,
                       onChanged: (typedText) {
                         if (typedText.length >= 6 || typedText.isEmpty) {
                           authController.hideWarning();
@@ -75,6 +82,7 @@ class SignUp extends StatelessWidget {
                       },
                       obscureText: true,
                       inputType: TextInputType.name,
+                      controller: confirmPasswordController,
                     ),
                     authController.warningDifferent == ''
                         ? Container()
@@ -95,7 +103,7 @@ class SignUp extends StatelessWidget {
                     ),
                     TextButton(
                       onPressed: () {
-                        Get.to(() =>  Login());
+                        Get.to(() => Login());
                       },
                       child: const Text('Go to Login page'),
                     ),

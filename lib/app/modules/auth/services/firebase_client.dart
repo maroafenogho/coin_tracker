@@ -61,4 +61,8 @@ class FirebaseClient {
       });
     }
   }
+
+  void signOut() async {
+    await _firebaseAuth.signOut();
+  }
 }
