@@ -26,10 +26,10 @@ final firebaseClientProvider =
 final emailProvider = StateProvider<String>((ref) => '');
 final passwordProvider = StateProvider<String>((ref) => '');
 
-final firebaseLoginProvider = FutureProvider((ref) => ref
-    .watch(firebaseClientProvider)
-    .signIn(ref.watch(emailProvider.notifier).state,
-        ref.watch(passwordProvider.notifier).state));
+final firebaseLoginProvider = FutureProvider.autoDispose
+    .family<FirebaseUser?, FirebaseUser>((ref, user) async => await ref
+        .watch(authRepoProvider)
+        .login(email: user.email!, password: user.password!));
 
 final authRepoProvider = Provider((ref) => UserRepository());
 
