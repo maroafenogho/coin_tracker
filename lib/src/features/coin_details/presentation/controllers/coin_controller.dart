@@ -1,16 +1,14 @@
-import 'package:coin_tracker/app/modules/coins/model/coins_model.dart';
 import 'package:coin_tracker/app/modules/coins/repository/coins_repository.dart';
-import 'package:coin_tracker/app/modules/coins/services/coins_api_service.dart';
 import 'package:coin_tracker/src/features/coin_details/domain/coins_model.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-final coinsFutureProvider = FutureProvider<List<Coins>>((ref) async {
+final coinsFutureProvider = FutureProvider<List<CoinModel>>((ref) async {
   final coinsList = await CoinsApiService().getCoins();
   return coinsList;
 });
 
-final selectedCoin = StateProvider<Coins>(
-  (ref) => Coins(
+final selectedCoin = StateProvider<CoinModel>(
+  (ref) => CoinModel(
     id: '',
     symbol: '',
     ath: 0.0,
@@ -36,7 +34,7 @@ final selectedCoin = StateProvider<Coins>(
 );
 // final timerProvider = StateProvider<>()
 
-final coinStreamProvider = StreamProvider<List<Coins>>((ref) async* {
+final coinStreamProvider = StreamProvider<List<CoinModel>>((ref) async* {
   final coinsList = await ref.watch(coinsApiService).getCoins();
   yield coinsList;
 });
@@ -59,13 +57,13 @@ class CoinsNotifier extends StateNotifier<AsyncValue<void>> {
   getCoins() async {
     state = const AsyncLoading();
 
-    final coinsList = <Coins>[];
-    state = await AsyncValue.guard<List<Coins>>(() async {
+    final coinsList = <CoinModel>[];
+    state = await AsyncValue.guard<List<CoinModel>>(() async {
       final coins = await _coinsRepository.getCoins();
 
       for (final coin in coins) {
         coinsList.add(
-          Coins(
+          CoinModel(
             id: coin.id,
             symbol: coin.symbol,
             ath: coin.ath,

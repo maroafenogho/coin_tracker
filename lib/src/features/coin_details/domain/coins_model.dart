@@ -1,4 +1,4 @@
-class Coins {
+class CoinModel {
   String id;
   String symbol;
   String name;
@@ -21,7 +21,7 @@ class Coins {
   double atl;
   double atlChangePercent;
 
-  Coins({
+  CoinModel({
     required this.id,
     required this.symbol,
     required this.ath,
@@ -45,8 +45,8 @@ class Coins {
     required this.atlChangePercent,
   });
 
-  factory Coins.fromJson(Map<String, dynamic> map) {
-    return Coins(
+  factory CoinModel.fromJson(Map<String, dynamic> map) {
+    return CoinModel(
       id: map['id'],
       symbol: map['symbol'],
       ath: double.parse(map['ath'].toString()),
