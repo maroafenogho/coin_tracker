@@ -10,10 +10,9 @@ class CoinsHomepage extends StatelessWidget {
     return Scaffold(
       body: Column(children: [
         Consumer(builder: (((context, ref, child) {
-          // final coins = ref.watch(coinsFutureProvider);
+          final asyncCoins = ref.watch(asyncCoinProvider);
 
-          final coinStream = ref.watch(coinStreamProvider);
-          return coinStream.when(
+          return asyncCoins.when(
               data: (coin) {
                 // Timer.periodic(const Duration(seconds: 2), (timer) {
                 //   ref.refresh(coinStreamProvider);
@@ -107,7 +106,9 @@ class CoinsHomepage extends StatelessWidget {
                 print(stacktrace);
                 return const Text('error');
               },
-              loading: () => const Center(child: CircularProgressIndicator()));
+              loading: () => SizedBox(
+                  height: MediaQuery.of(context).size.height,
+                  child: const Center(child: CircularProgressIndicator())));
         })))
       ]),
     );
