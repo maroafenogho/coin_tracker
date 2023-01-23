@@ -30,7 +30,9 @@ final selectedCoin = StateProvider<CoinModel>(
   ),
 );
 // final timerProvider = StateProvider<>()
-
+final coinsList = StateProvider<List<CoinModel>>((ref) {
+  return [];
+});
 final asyncCoinProvider =
     AsyncNotifierProvider<AsyncCoinsNotifier, List<CoinModel>>(
   () {

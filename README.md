@@ -27,5 +27,8 @@ The app is implemented using the MVVM and Repository design patterns.
 
 The homescreen currently looks like the image below:
 
-<img src="./cointracker.png"> old look
+##Update (January 23 2023):
+- The app now has icons for each asset.
+- The app also includes an expandable widget which opens up a separate part on the list itm to display more details for the selected coin.
+
 <img src="./new_look.png"> new look

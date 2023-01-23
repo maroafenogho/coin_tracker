@@ -20,6 +20,7 @@ class CoinModel {
   String atlDate;
   double atl;
   double atlChangePercent;
+  bool isExpanded;
 
   CoinModel({
     required this.id,
@@ -43,6 +44,7 @@ class CoinModel {
     required this.athDate,
     required this.atlDate,
     required this.atlChangePercent,
+    this.isExpanded = false,
   });
 
   factory CoinModel.fromJson(Map<String, dynamic> map) {
