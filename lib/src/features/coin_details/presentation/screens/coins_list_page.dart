@@ -1,5 +1,6 @@
 import 'package:coin_tracker/src/common/app_typography.dart';
 import 'package:coin_tracker/src/features/coin_details/presentation/controllers/coin_controller.dart';
+import 'package:coin_tracker/src/utils/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -171,7 +172,8 @@ class CoinsHomepage extends StatelessWidget {
                                               Text('All-Time-High: ',
                                                   style: AppTypography
                                                       .expandedText),
-                                              Text('\$${coinmodel.ath}',
+                                              Text(
+                                                  '\$${coinmodel.ath.formattedNumber}',
                                                   style: AppTypography
                                                       .expandedText),
                                             ],
@@ -186,55 +188,9 @@ class CoinsHomepage extends StatelessWidget {
                                               Text('Total Supply: ',
                                                   style: AppTypography
                                                       .expandedText),
-                                              Text('\$${coinmodel.totalSupply}',
-                                                  style: AppTypography
-                                                      .expandedText),
-                                            ],
-                                          ),
-                                          const SizedBox(
-                                            height: 10,
-                                          ),
-                                          Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.start,
-                                            children: [
-                                              Text('Market Rank: ',
-                                                  style: AppTypography
-                                                      .expandedText),
-                                              Text('\$${coinmodel.marketRank}',
-                                                  style: AppTypography
-                                                      .expandedText),
-                                            ],
-                                          ),
-                                        ],
-                                      ),
-                                      Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.start,
-                                            children: [
-                                              Text('All-Time-Low: ',
-                                                  style: AppTypography
-                                                      .expandedText),
-                                              Text('\$${coinmodel.atl}',
-                                                  style: AppTypography
-                                                      .expandedText),
-                                            ],
-                                          ),
-                                          const SizedBox(
-                                            height: 10,
-                                          ),
-                                          Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.start,
-                                            children: [
-                                              Text('Max Supply: ',
-                                                  style: AppTypography
-                                                      .expandedText),
-                                              Text('${coinmodel.maxSupply}',
+                                              Text(
+                                                  coinmodel.totalSupply
+                                                      .formattedNumber,
                                                   style: AppTypography
                                                       .expandedText),
                                             ],
@@ -249,7 +205,59 @@ class CoinsHomepage extends StatelessWidget {
                                               Text('Market Cap: ',
                                                   style: AppTypography
                                                       .expandedText),
-                                              Text('${coinmodel.marketCap}',
+                                              Text(
+                                                  '\$${coinmodel.marketCap.formattedNumber}',
+                                                  style: AppTypography
+                                                      .expandedText),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.end,
+                                        children: [
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.start,
+                                            children: [
+                                              Text('All-Time-Low: ',
+                                                  style: AppTypography
+                                                      .expandedText),
+                                              Text(
+                                                  '\$${coinmodel.atl.formattedNumber}',
+                                                  style: AppTypography
+                                                      .expandedText),
+                                            ],
+                                          ),
+                                          const SizedBox(
+                                            height: 10,
+                                          ),
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.start,
+                                            children: [
+                                              Text('Max Supply: ',
+                                                  style: AppTypography
+                                                      .expandedText),
+                                              Text(
+                                                  coinmodel.maxSupply
+                                                      .formattedNumber,
+                                                  style: AppTypography
+                                                      .expandedText),
+                                            ],
+                                          ),
+                                          const SizedBox(
+                                            height: 10,
+                                          ),
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.start,
+                                            children: [
+                                              Text('Market Rank: ',
+                                                  style: AppTypography
+                                                      .expandedText),
+                                              Text('${coinmodel.marketRank}',
                                                   style: AppTypography
                                                       .expandedText),
                                             ],
