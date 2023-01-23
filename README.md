@@ -6,7 +6,7 @@ This app follows the Riverpod architecture.
 
 The app uses the following packages/dependencies:
 
-* <a href="https://pub.dev/packages/riverpod" target="_blank">Riverpod</a> for state management
+* <a href="https://pub.dev/packages/flutter_riverpod" target="_blank">Riverpod</a> for state management
 * Firebase for Authentication. (Currently removed from this branch)
 * <a href="https://pub.dev/packages/http" target="_blank">Http</a> for querying APIs
 
