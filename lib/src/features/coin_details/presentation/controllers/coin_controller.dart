@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:coin_tracker/src/features/coin_details/data/repositories/coins_repo.dart';
 import 'package:coin_tracker/src/features/coin_details/domain/coins_model.dart';
+import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final selectedCoin = StateProvider<CoinModel>(
@@ -33,6 +34,14 @@ final selectedCoin = StateProvider<CoinModel>(
 final coinsList = StateProvider<List<CoinModel>>((ref) {
   return [];
 });
+
+final selectedDays = StateProvider((ref) => '1');
+
+final daysList = Provider((ref) => ['1D', '1W', '1M', '1Y', 'MAX']);
+
+final coinsRepoProvider = Provider((ref) => CoinsRepository());
+
+final timerProvider = StateProvider<int>((ref) => 10);
 final asyncCoinProvider =
     AsyncNotifierProvider<AsyncCoinsNotifier, List<CoinModel>>(
   () {
@@ -42,7 +51,6 @@ final asyncCoinProvider =
 
 class AsyncCoinsNotifier extends AsyncNotifier<List<CoinModel>> {
   AsyncCoinsNotifier();
-  final CoinsRepository _coinsRepository = CoinsRepository();
 
   @override
   FutureOr<List<CoinModel>> build() {
@@ -53,12 +61,34 @@ class AsyncCoinsNotifier extends AsyncNotifier<List<CoinModel>> {
     state = const AsyncValue.loading();
     List<CoinModel> coinsList = [];
     state = await AsyncValue.guard<List<CoinModel>>(() async {
-      final coins = await _coinsRepository.getCoins();
+      final coins = await ref.watch(coinsRepoProvider).getCoins();
 
       coinsList = coins;
       return coinsList;
     });
 
     return coinsList;
+  }
+}
+
+final asyncChartProvider =
+    AsyncNotifierProvider<AsyncChartNotifier, List<FlSpot>>(
+        () => AsyncChartNotifier());
+
+class AsyncChartNotifier extends AsyncNotifier<List<FlSpot>> {
+  @override
+  FutureOr<List<FlSpot>> build() {
+    return getCoinChart(ref.watch(selectedDays), ref.watch(selectedCoin).id);
+  }
+
+  Future<List<FlSpot>> getCoinChart(String days, String id) async {
+    state = const AsyncLoading();
+    List<FlSpot> chartList = [];
+    state = await AsyncValue.guard<List<FlSpot>>(() async {
+      final list = await ref.watch(coinsRepoProvider).getChart(id, days);
+      chartList = list;
+      return chartList;
+    });
+    return chartList;
   }
 }
